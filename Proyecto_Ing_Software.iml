@@ -31,7 +31,6 @@
     <orderEntry type="library" name="Mojarra-2.3.8" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 5.0.1 - CDI: Contexts and Dependency Injection" level="application_server_libraries" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
-    <orderEntry type="library" name="primefaces-8.0" level="project" />
-    <orderEntry type="library" name="BootsFaces-OSP-1.4.2" level="project" />
+    <orderEntry type="library" name="primefaces-6.1-sources" level="project" />
   </component>
 </module>

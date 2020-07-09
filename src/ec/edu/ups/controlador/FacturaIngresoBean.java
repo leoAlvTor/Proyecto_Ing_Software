@@ -152,9 +152,9 @@ public class FacturaIngresoBean implements Serializable {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        FacturaIngreso factIngreso= new FacturaIngreso(1,cal,total_iva,subtotal,total,null,null);
-        paciente, List<FacturaDetalle> facturadetalles, Cita cita
-        this.list.add(new FacturaDetalle(,Integer.parseInt(cantidad),medicamento_encontrado,precio_total));
+        //FacturaIngreso factIngreso= new FacturaIngreso(1,cal,total_iva,subtotal,total,null,null);
+        //paciente, List<FacturaDetalle> facturadetalles, Cita cita
+        //this.list.add(new FacturaDetalle(,Integer.parseInt(cantidad),medicamento_encontrado,precio_total));
         return null;
     }
     public Medicamento buscarMedicamento(String nombre){
