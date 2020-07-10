@@ -17,11 +17,13 @@ public class Medico extends Persona implements Serializable {
     private List<Cita> citas;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "medico")
     private List<Certificado> certificados;
+    @Transient
+    private boolean editable;
 
     public Medico() {
     }
 
-    public Medico( Rol rol, String especialidad, List<Cita> citas, List<Certificado> certificados) {
+    public Medico(Rol rol, String especialidad, List<Cita> citas, List<Certificado> certificados) {
 
         this.rol = rol;
         this.especialidad = especialidad;
@@ -61,6 +63,14 @@ public class Medico extends Persona implements Serializable {
 
     public void setCertificados(List<Certificado> certificados) {
         this.certificados = certificados;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
 

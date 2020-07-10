@@ -91,7 +91,9 @@
                 <h:outputText value="Password: " />
                 <h:inputText  value="#{medicoBean.password}" />
                 <br/>
-
+                <h:outputText value="Especialidad: " />
+                <h:inputText  value="#{medicoBean.especialidad}" />
+                <br/>
                 <br/>
                 <p><h:commandButton value="Agregar" action="#{medicoBean.addMedico()}" /></p>
 
@@ -99,7 +101,7 @@
 
                 <h2>Lista de Medicos</h2>
 
-                <h:dataTable value="#{medicoBean.listaMedicos}" var="b" styleClass="tabla"
+                <h:dataTable value="#{medicoBean.listaMedicos}" var="m" styleClass="tabla"
                              headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
                     <h:column>
                         <f:facet name="header">Codigo</f:facet>#{m.codigo}
@@ -114,30 +116,32 @@
                     <h:column>
                         <f:facet name="header">Apellido</f:facet>
                         <h:inputText value="#{m.apellido}" size="10" rendered="#{m.editable}" />
-                        <h:outputText value="#{m.nombre}" rendered="#{not m.editable}" />
+                        <h:outputText value="#{m.apellido}" rendered="#{not m.editable}" />
                     </h:column>
 
 
-                   <!-- <h:column>
+                    <h:column>
                         <f:facet name="header">Especialidad</f:facet>
-                        <h:inputText value="#{m.ciudad.nombre}" size="10" rendered="#{m.editable}" />
-                        <h:outputText value="#{m.ciudad.nombre}" rendered="#{not m.editable}" />
+                        <h:inputText value="#{m.especialidad}" size="10" rendered="#{m.editable}" />
+                        <h:outputText value="#{m.especialidad}" rendered="#{not m.editable}" />
                     </h:column>
 
-                    &lt;!&ndash;     <h:column>
-                             <f:facet name="header">Accion</f:facet>
-                             <h:commandLink value="Delete" action="#{bodegaBean.deleted(b)}" />
-                         </h:column>&ndash;&gt;
+                    <h:column>
+                        <f:facet name="header">Accion</f:facet>
+                        <h:commandLink value="Delete" action="#{medicoBean.deleted(m)}" />
+                    </h:column>
+
                     <h:column>
                         <f:facet name="header">Accion</f:facet>
 
-                        <h:commandLink value="Editar Bodega" action="#{bodegaBean.buscarBodega(m.codigo)}">
-                            <f:actionListener binding="#{bodegaBean.navegar()}" />
-                        </h:commandLink>
-                    </h:column>-->
+                        <h:commandLink value="Edit" action="#{medicoBean.edit(m)}"
+                                       rendered="#{not m.editable}" />
+                        <h:commandLink value="Save" action="#{medicoBean.save(m)}"
+                                       rendered="#{m.editable}" />
+
+                    </h:column>
 
                 </h:dataTable>
-
 
             </p:tab>
 

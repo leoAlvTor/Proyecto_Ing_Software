@@ -1,6 +1,5 @@
 package ec.edu.ups.controlador;
 
-import ec.edu.ups.ejb.MedicamentoFacade;
 import ec.edu.ups.ejb.MedicoFacade;
 import ec.edu.ups.entidad_cit_cons_cert.Medico;
 
@@ -49,6 +48,7 @@ public class MedicoBean implements Serializable {
         m.setEspecialidad(this.especialidad.toUpperCase());
         medicoFacade.create(m);
         limpiarCampos();
+        this.listaMedicos=medicoFacade.findAll();/*para actualizar la lista de medicos*/
     }
 
     public void limpiarCampos(){
@@ -62,6 +62,23 @@ public class MedicoBean implements Serializable {
 
 
 
+    /*EDICION FILAS*/
+    public String deleted(Medico m){
+        medicoFacade.remove(m);
+        listaMedicos=medicoFacade.findAll();
+        return null;
+    }
+
+    public String edit (Medico m){
+        m.setEditable(true);
+        return null;
+    }
+
+    public String save(Medico m){
+        this.medicoFacade.edit(m);
+        m.setEditable(false);
+        return null;
+    }
 
     /*ZONA GET SET*/
 
