@@ -1,13 +1,13 @@
 package ec.edu.ups.entidad_cit_cons_cert;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-public class Medico implements Serializable {
+public class Medico extends Persona implements Serializable {
 
 
     @Id

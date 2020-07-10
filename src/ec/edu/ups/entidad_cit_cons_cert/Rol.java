@@ -17,6 +17,9 @@ public class Rol implements Serializable {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "rol")
     private List<Medico> medicos;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "rol")
+    private List<Colaborador>  listaColaboradores;
+
     public Rol() {
 
     }
@@ -26,6 +29,11 @@ public class Rol implements Serializable {
         this.descripcion = descripcion;
         this.pacientes = pacientes;
         this.medicos = medicos;
+    }
+
+    public Rol(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public int getCodigo() {
@@ -66,6 +74,14 @@ public class Rol implements Serializable {
 
     public void setMedicos(List<Medico> medicos) {
         this.medicos = medicos;
+    }
+
+    public List<Colaborador> getListaColaboradores() {
+        return listaColaboradores;
+    }
+
+    public void setListaColaboradores(List<Colaborador> listaColaboradores) {
+        this.listaColaboradores = listaColaboradores;
     }
 
     @Override

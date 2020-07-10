@@ -1,12 +1,223 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>Title</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
-</body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" type="javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" type="javascript"></script>
+<link rel="stylesheet" href="style/style.css"/>
+
+<h:head>
+    <title>Pagina Administrador</title>
+
+</h:head>
+
+<h:body>
+
+    <div class="navbar navbar-light bg-light justify-content-between">
+        <p:graphicImage value=""/>
+        <a class="navbar-brand">Sistema Medico </a>
+        <p:commandLink styleClass="btn btn-primary" style="margin-right: 15px" value="Mi Colaborador"/>
+        <p:commandLink styleClass="btn btn-primary" style="margin-right: 15px" value="Mi Cuenta"/>
+        <p:commandLink styleClass="btn btn-primary" style="margin-right: auto" value="Mi Perfil"/>
+        <p:commandLink styleClass="btn btn-danger" style="margin-left: auto" value="Cerrar Sesion"/>
+    </div>
+
+    <hr/>
+
+    <h:form>
+        <p:tabView orientation="top" style="margin-left: 5px; margin-right: 5px;">
+            <p:tab title="Registrar nuevo Rol:">
+
+                <h:outputText value="Nombre del rol: " />
+                <h:inputText  value="#{administradorBean.nombreRol}" />
+                <br/>
+                <h:outputText value="Descripcion rol: " />
+                <h:inputText  value="#{administradorBean.descripcion}"  />
+
+                <br/>
+                <p><h:commandButton value="Agregar" action="#{administradorBean.addRol()}" /></p>
+
+
+            </p:tab>
+
+            <p:tab title="Registrar Colaborador:">
+
+                <h:outputText value="Nombre: " />
+                <h:inputText  value="#{administradorBean.nombre}" />
+                <br/>
+                <h:outputText value="Apellido: " />
+                <h:inputText  value="#{administradorBean.apellido}"  />
+                <br/>
+                <h:outputText value="Cedula: " />
+                <h:inputText  value="#{administradorBean.cedula}" />
+                <br/>
+                <h:outputText value="Correo: " />
+                <h:inputText  value="#{administradorBean.correo}"  />
+                <br/>
+                <h:outputText value="Password: " />
+                <h:inputText  value="#{administradorBean.password}" />
+                <br/>
+
+                <h:selectOneMenu value="#{administradorBean.nombreRolSelect}" id="idRoles">
+                    <f:selectItems value="#{administradorBean.listaRoles}" />
+                    <!--<f:ajax render="idRoles" />-->
+                </h:selectOneMenu>
+
+                <br/>
+                <p><h:commandButton value="Agregar" action="#{administradorBean.addRol()}" /></p>
+            </p:tab>
+
+            <p:tab title="LIBRE">
+
+            </p:tab>
+
+            <p:tab title="Mis Ordenes Medicas:">
+                <p:panelGrid columns="2" styleClass="noBorders" style="width: 100%">
+
+                    <p:outputLabel style="display: block; margin-right: auto; font-size: 2vw" value="Ordenes Medicas"/>
+                    <p:inputText style="display: block; margin-left: auto; width: 61%; max-width: 400px" placeholder="Codigo de la orden"/>
+
+                </p:panelGrid>
+
+                <hr style="border: 1px solid; width: 100%"/>
+
+                <p:panelGrid columns="2" styleClass="noBorders" style="width: 100%">
+
+                    <p:commandLink styleClass="btn btn-primary btn-block" style="display: block; margin-right: auto; max-width: 400px; color: white !important;" value="Listar mis ordenes medicas"/>
+                    <p:commandLink styleClass="btn btn-primary btn-block" style="display: block; margin-left: auto; max-width: 400px; color: white !important;" value="Buscar Orden"/>
+
+                </p:panelGrid>
+                <hr style="border: 1px solid; width: 100%"/>
+                <div>
+                    <h:panelGroup>
+                        <h:dataTable id="tbl_mis_ordenes" var="tbl1_data" value="#{tableBean.ordenMedicaList}" styleClass="table table-bordered table-hover">
+                            <h:column>
+                                <f:facet name="header"><h5>CODIGO</h5></f:facet>
+                                #{tbl1_data.codigo}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"><h5>MOTIVO</h5></f:facet>
+                                #{tbl1_data.motivo}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"><h5>TIPO DE EXAMEN</h5></f:facet>
+                                #{tbl1_data.tipoDeExamen}
+                            </h:column>
+
+                        </h:dataTable>
+                    </h:panelGroup>
+                </div>
+
+            </p:tab>
+            <p:tab title="Mis Certificados:">
+                <p:panelGrid columns="2" styleClass="noBorders" style="width: 100%">
+
+                    <p:outputLabel style="display: block; margin-right: auto; font-size: 2vw" value="Certificados Medicos"/>
+                    <p:inputText style="display: block; margin-left: auto; width: 61%; max-width: 400px" placeholder="Codigo del certificado medico"/>
+
+                </p:panelGrid>
+
+                <hr style="border: 1px solid; width: 100%"/>
+
+                <p:panelGrid columns="2" styleClass="noBorders" style="width: 100%">
+
+                    <p:commandLink styleClass="btn btn-warning btn-block" style="display: block; margin-right: auto; max-width: 400px; color: white !important;" value="Listar mis certificados medicos"/>
+                    <p:commandLink styleClass="btn btn-warning btn-block" style="display: block; margin-left: auto; max-width: 400px; color: white !important;" value="Buscar Certificado"/>
+
+                </p:panelGrid>
+                <hr style="border: 1px solid; width: 100%"/>
+                <div>
+                    <h:panelGroup>
+                        <h:dataTable id="tbl_mis_certificados" var="tbl2_data" value="#{tableBean.certificadosList}" styleClass="table table-bordered table-hover">
+                            <h:column>
+                                <f:facet name="header"><h5>CODIGO</h5></f:facet>
+                                #{tbl2_data.codigo}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"><h5>DESCRIPCION / RAZON</h5></f:facet>
+                                #{tbl2_data.motivo}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"><h5>TIEMPO DE REPOSO </h5></f:facet>
+                                #{tbl2_data.tipoDeExamen}
+                            </h:column>
+
+                        </h:dataTable>
+                    </h:panelGroup>
+                </div>
+
+            </p:tab>
+            <p:tab title="Mis Citas:">
+                <p:panelGrid columns="2" styleClass="noBorders" style="width: 100%">
+
+                    <p:outputLabel style="display: block; margin-right: auto; font-size: 2vw" value="Mis Citas Medicas"/>
+                    <p:inputText style="display: block; margin-left: auto; width: 61%; max-width: 400px" placeholder="Codigo De La Cita"/>
+
+                </p:panelGrid>
+
+                <hr style="border: 1px solid; width: 100%"/>
+
+                <p:panelGrid columns="2" styleClass="noBorders" style="width: 100%">
+
+                    <p:commandLink styleClass="btn btn-info btn-block" style="display: block; margin-right: auto; max-width: 400px; color: white !important;" value="Listar mis citas medicas"/>
+                    <p:commandLink styleClass="btn btn-info btn-block" style="display: block; margin-left: auto; max-width: 400px; color: white !important;" value="Buscar Cita"/>
+
+                </p:panelGrid>
+                <hr style="border: 1px solid; width: 100%"/>
+                <div>
+                    <h:panelGroup>
+                        <h:dataTable id="tbl_mis_citas" var="tbl2_data" styleClass="table table-bordered table-hover">
+                            <h:column>
+                                <f:facet name="header"><h5>CODIGO</h5></f:facet>
+                                #{tbl2_data.codigo}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"><h5>FECHA</h5></f:facet>
+                                #{tbl2_data.motivo}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"><h5>HORA</h5></f:facet>
+                                #{tbl2_data.tipoDeExamen}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header"><h5>MEDICO</h5></f:facet>
+                                #{tbl2_data.codigo}
+                            </h:column>
+
+                        </h:dataTable>
+                    </h:panelGroup>
+                </div>
+            </p:tab>
+            <p:tab title="Reservar una cita:">
+                <p:panelGrid columns="3" styleClass="noBorders" style="width: 100%">
+
+                    <h:selectOneMenu>
+                        <f:selectItem />
+                    </h:selectOneMenu>
+
+
+                    <p:outputLabel style="display: block; margin-right: auto; font-size: 2vw" value="Mis Citas Medicas"/>
+                    <p:inputText style="display: block; margin-left: auto; width: 61%; max-width: 400px" placeholder="Codigo De La Cita"/>
+
+                </p:panelGrid>
+            </p:tab>
+        </p:tabView>
+    </h:form>
+</h:body>
+
 </html>
