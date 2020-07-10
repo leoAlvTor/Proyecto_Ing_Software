@@ -26,8 +26,8 @@ public class AdministradorBean implements Serializable {
     private Map<String,Integer> mapaRoles;
     @EJB
     private RolFacade rolFacade;
-    /*@EJB
-    private ColaboradorFacade colaboradorFacade;*/
+    @EJB
+    private ColaboradorFacade colaboradorFacade;
 
     /*variables de personaColaborador*/
     private String cedula;
@@ -78,7 +78,7 @@ public class AdministradorBean implements Serializable {
         c.setPassword(this.password);
         Rol r=rolFacade.find(mapaRoles.get(this.nombreRolSelect));
         c.setRol(r);
-        /*colaboradorFacade.create(c);*/
+        colaboradorFacade.create(c);
     }
 
 
@@ -135,12 +135,11 @@ public class AdministradorBean implements Serializable {
     }
 
     /*metodos*/
-    public String [] listaRoles(){
+    public String [] listaRolesForSelect(){
         String[] list = new String[listaRoles.size()];
         list[0]="elegir";
         for (int i = 1; i < listaRoles.size(); i++){
             list[i] = listaRoles.get(i).getNombre();
-            System.out.println("****************************************"+list[i]);
         }
         return list;
     }
