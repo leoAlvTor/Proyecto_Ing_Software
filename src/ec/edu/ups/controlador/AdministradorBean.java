@@ -1,6 +1,8 @@
 package ec.edu.ups.controlador;
 
+import ec.edu.ups.ejb.ColaboradorFacade;
 import ec.edu.ups.ejb.RolFacade;
+import ec.edu.ups.entidad_cit_cons_cert.Colaborador;
 import ec.edu.ups.entidad_cit_cons_cert.Rol;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +26,8 @@ public class AdministradorBean implements Serializable {
     private Map<String,Integer> mapaRoles;
     @EJB
     private RolFacade rolFacade;
+    /*@EJB
+    private ColaboradorFacade colaboradorFacade;*/
 
     /*variables de personaColaborador*/
     private String cedula;
@@ -65,6 +69,17 @@ public class AdministradorBean implements Serializable {
 
 
     /*Metodos para persistencia Colaborador*/
+    public void addColaborador(){
+        Colaborador c=new Colaborador();
+        c.setNombre(this.nombre.toUpperCase());
+        c.setApellido(this.apellido.toUpperCase());
+        c.setCedula(this.cedula);
+        c.setCorreo(this.correo);
+        c.setPassword(this.password);
+        Rol r=rolFacade.find(mapaRoles.get(this.nombreRolSelect));
+        c.setRol(r);
+        /*colaboradorFacade.create(c);*/
+    }
 
 
     public String getNombreRol() {

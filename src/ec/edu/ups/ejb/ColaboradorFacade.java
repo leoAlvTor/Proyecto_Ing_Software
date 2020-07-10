@@ -16,7 +16,7 @@ public class ColaboradorFacade extends AbstractFacade<Colaborador> {
 
     @Override
     protected EntityManager getEntityManager() {
-        return null;
+        return entityManager;
     }
 
 
