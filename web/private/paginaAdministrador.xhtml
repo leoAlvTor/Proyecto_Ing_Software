@@ -75,11 +75,77 @@
                 <p><h:commandButton value="Agregar" action="#{administradorBean.addColaborador()}" /></p>
             </p:tab>
 
+            <p:tab title="Registrar Medicos: ">
+                <h:outputText value="Nombre: " />
+                <h:inputText  value="#{medicoBean.nombre}" />
+                <br/>
+                <h:outputText value="Apellido: " />
+                <h:inputText  value="#{medicoBean.apellido}"  />
+                <br/>
+                <h:outputText value="Cedula: " />
+                <h:inputText  value="#{medicoBean.cedula}" />
+                <br/>
+                <h:outputText value="Correo: " />
+                <h:inputText  value="#{medicoBean.correo}"  />
+                <br/>
+                <h:outputText value="Password: " />
+                <h:inputText  value="#{medicoBean.password}" />
+                <br/>
+
+                <br/>
+                <p><h:commandButton value="Agregar" action="#{medicoBean.addMedico()}" /></p>
+
+
+
+                <h2>Lista de Medicos</h2>
+
+                <h:dataTable value="#{medicoBean.listaMedicos}" var="b" styleClass="tabla"
+                             headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+                    <h:column>
+                        <f:facet name="header">Codigo</f:facet>#{m.codigo}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        <h:inputText value="#{m.nombre}" size="10" rendered="#{m.editable}" />
+                        <h:outputText value="#{m.nombre}" rendered="#{not m.editable}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Apellido</f:facet>
+                        <h:inputText value="#{m.apellido}" size="10" rendered="#{m.editable}" />
+                        <h:outputText value="#{m.nombre}" rendered="#{not m.editable}" />
+                    </h:column>
+
+
+                   <!-- <h:column>
+                        <f:facet name="header">Especialidad</f:facet>
+                        <h:inputText value="#{m.ciudad.nombre}" size="10" rendered="#{m.editable}" />
+                        <h:outputText value="#{m.ciudad.nombre}" rendered="#{not m.editable}" />
+                    </h:column>
+
+                    &lt;!&ndash;     <h:column>
+                             <f:facet name="header">Accion</f:facet>
+                             <h:commandLink value="Delete" action="#{bodegaBean.deleted(b)}" />
+                         </h:column>&ndash;&gt;
+                    <h:column>
+                        <f:facet name="header">Accion</f:facet>
+
+                        <h:commandLink value="Editar Bodega" action="#{bodegaBean.buscarBodega(m.codigo)}">
+                            <f:actionListener binding="#{bodegaBean.navegar()}" />
+                        </h:commandLink>
+                    </h:column>-->
+
+                </h:dataTable>
+
+
+            </p:tab>
+
             <p:tab title="LIBRE">
 
             </p:tab>
 
-            <p:tab title="Mis Ordenes Medicas:">
+<!--            <p:tab title="Mis Ordenes Medicas:">
                 <p:panelGrid columns="2" styleClass="noBorders" style="width: 100%">
 
                     <p:outputLabel style="display: block; margin-right: auto; font-size: 2vw" value="Ordenes Medicas"/>
@@ -215,7 +281,9 @@
                     <p:inputText style="display: block; margin-left: auto; width: 61%; max-width: 400px" placeholder="Codigo De La Cita"/>
 
                 </p:panelGrid>
-            </p:tab>
+            </p:tab>-->
+
+
         </p:tabView>
     </h:form>
 </h:body>
