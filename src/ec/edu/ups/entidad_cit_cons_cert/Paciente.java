@@ -1,6 +1,5 @@
 package ec.edu.ups.entidad_cit_cons_cert;
 
-import ec.edu.ups.entidad_ingre_egre_rep.FacturaCabecera;
 import ec.edu.ups.entidad_ingre_egre_rep.FacturaIngreso;
 
 import javax.persistence.*;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
 public class Paciente  implements Serializable {
 
 

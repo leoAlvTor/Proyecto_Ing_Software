@@ -1,11 +1,13 @@
 package ec.edu.ups.entidad_cit_cons_cert;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@MappedSuperclass
 public class Persona implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,19 +17,17 @@ public class Persona implements Serializable {
     private String apellido;
     private String correo;
     private String password;
-    @ManyToOne
-    private Rol rol;
+
 
     public Persona() {
     }
 
-    public Persona(String cedula, String nombre, String apellido, String correo, String password, Rol rol) {
+    public Persona(String cedula, String nombre, String apellido, String correo, String password) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.password = password;
-        this.rol = rol;
     }
 
     public int getCodigo() {
@@ -78,13 +78,7 @@ public class Persona implements Serializable {
         this.password = password;
     }
 
-    public Rol getRol() {
-        return rol;
-    }
 
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
 
     @Override
     public boolean equals(Object o) {

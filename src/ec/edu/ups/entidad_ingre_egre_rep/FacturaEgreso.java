@@ -1,25 +1,21 @@
 package ec.edu.ups.entidad_ingre_egre_rep;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @Entity
 
 public class FacturaEgreso extends FacturaCabecera implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "facturaingreso")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "facturaEgreso")
     private List<FacturaDetalle> facturadetalles;
     @ManyToOne
     private Caja caja;
 
     public FacturaEgreso() {
-    }
-
-    public FacturaEgreso(GregorianCalendar fecha, double total_iva, double subtotal, double total, Caja caja, List<FacturaDetalle> facturadetalles, Caja caja1) {
-        super(fecha, total_iva, subtotal, total, caja);
-        this.facturadetalles = facturadetalles;
-        this.caja = caja1;
     }
 
     public FacturaEgreso(List<FacturaDetalle> facturadetalles, Caja caja) {
@@ -61,4 +57,3 @@ public class FacturaEgreso extends FacturaCabecera implements Serializable {
                 '}';
     }
 }
-

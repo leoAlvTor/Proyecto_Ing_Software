@@ -36,7 +36,7 @@ public class RolBean implements Serializable {
 
     public void prueba(){
 
-        ejbRolFacade.create(new Rol("Secretaria","Rol para la secretaria"));
+       // ejbRolFacade.create(new Rol("Secretaria","Rol para la secretaria"));
     }
 
 }

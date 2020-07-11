@@ -1,13 +1,9 @@
 package ec.edu.ups.controlador;
 
-import ec.edu.ups.ejb.FacturaDetalleFacade;
-import ec.edu.ups.ejb.FacturaIngresoFacade;
-import ec.edu.ups.ejb.MedicamentoFacade;
-import ec.edu.ups.ejb.PacienteFacade;
+import ec.edu.ups.ejb.*;
 import ec.edu.ups.entidad_cit_cons_cert.Cita;
 import ec.edu.ups.entidad_cit_cons_cert.Paciente;
 import ec.edu.ups.entidad_ingre_egre_rep.FacturaDetalle;
-import ec.edu.ups.entidad_ingre_egre_rep.FacturaIngreso;
 import ec.edu.ups.entidad_ingre_egre_rep.Medicamento;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +11,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.*;
 
@@ -25,14 +22,15 @@ public class FacturaIngresoBean implements Serializable {
     private static final long serialVersionUID = 1L;
     @EJB
     private FacturaIngresoFacade ejbFacturaIngreso;
-    private List<FacturaDetalle> list;
     @EJB
     private FacturaDetalleFacade ejbFacturaDetalle;
     @EJB
     private MedicamentoFacade ejbMedicamentoFacade;
     @EJB
-    PacienteFacade ejbPacienteFacade;
-    private GregorianCalendar fecha;
+    private PacienteFacade ejbPacienteFacade;
+    @EJB
+    private CitaFacade ejbCitaFacade;
+    private String fecha;
     private String total_iva;
     private String subtotal;
     private String total;
@@ -40,18 +38,50 @@ public class FacturaIngresoBean implements Serializable {
     private String paciente;
     private String cita;
     //Detalle de la factura
-
     private String cantidad;
     private String medicamento;
     private String det_total;
+    //Lista para de las detalles de las facturas
+    private List<FacturaDetalle> list;
+    //Lista de citas segun el paciente;
+    private List<Cita> citas_paciente;
+    //Mensaje controlador
+    private String mensaje;
+    //cita seleccionada para facturar
+    private String selected_cita;
+
 
     public FacturaIngresoBean(){
 
     }
     @PostConstruct
     public void init(){
+        //list=ejbFacturaDetalle.findAll();
 
-       list=ejbFacturaDetalle.findAll();
+    }
+
+    public String getSelected_cita() {
+        return selected_cita;
+    }
+
+    public void setSelected_cita(String selected_cita) {
+        this.selected_cita = selected_cita;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public List<FacturaDetalle> getList() {
@@ -62,13 +92,6 @@ public class FacturaIngresoBean implements Serializable {
         this.list = list;
     }
 
-    public GregorianCalendar getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(GregorianCalendar fecha) {
-        this.fecha = fecha;
-    }
 
     public String getTotal_iva() {
         return total_iva;
@@ -142,28 +165,42 @@ public class FacturaIngresoBean implements Serializable {
         this.det_total = det_total;
     }
 
-    public String add() {
-        Medicamento medicamento_encontrado=buscarMedicamento(medicamento);
+    public List<Cita> getCitas_paciente() {
+        return citas_paciente;
+    }
+
+    public void setCitas_paciente(List<Cita> citas_paciente) {
+        this.citas_paciente = citas_paciente;
+    }
+
+    public void add() {
+
+            System.out.println("ingreso al metodo");
+        /*Medicamento medicamento_encontrado=buscarMedicamento(medicamento);
         double precio_total= medicamento_encontrado.getPrecio()*Integer.parseInt(cantidad);
         Date date = null;
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.setTime(date);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);  */
+        //SE DEBE BUSCAR POR CEDULA;
+        Cita cita_buscada= new Cita();
+        try {
+            Paciente paciente_buscado = ejbPacienteFacade.buscarPorCedula(paciente);
+            setMensaje("Paciente Encontrado");
+            citas_paciente=ejbCitaFacade.buscarCitaPorPaciente(paciente_buscado);
 
-        FacturaIngreso factIngreso= new FacturaIngreso(1,cal,total_iva,subtotal,total,null,null);
-        paciente, List<FacturaDetalle> facturadetalles, Cita cita
-        this.list.add(new FacturaDetalle(,Integer.parseInt(cantidad),medicamento_encontrado,precio_total));
-        return null;
-    }
-    public Medicamento buscarMedicamento(String nombre){
-        try{
-            Medicamento medicamento_buscado=ejbMedicamentoFacade.buscarPorNombre(nombre);
-            return medicamento_buscado;
         }catch (Exception e){
-            System.out.println("Algo salio mal :( = Medicamento no encontrado");
-            return null;
+            setMensaje("PACIENTE NO ENCONTRADO");
+            System.out.println("no encontro "+e);
+        }
+        System.out.println("encontro");
+
+
+
+
         }
     }
-}
+
+

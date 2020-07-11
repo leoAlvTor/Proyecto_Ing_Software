@@ -1,7 +1,5 @@
 package ec.edu.ups.entidad_cit_cons_cert;
 
-import sun.security.x509.CertificateIssuerExtension;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;

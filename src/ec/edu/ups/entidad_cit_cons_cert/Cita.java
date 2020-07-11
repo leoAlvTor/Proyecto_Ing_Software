@@ -5,6 +5,7 @@ import ec.edu.ups.entidad_ingre_egre_rep.FacturaIngreso;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -81,6 +82,8 @@ public class Cita implements Serializable {
         this.facturaingreso = facturaingreso;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,6 +91,7 @@ public class Cita implements Serializable {
         Cita cita = (Cita) o;
         return codigo == cita.codigo;
     }
+
 
     @Override
     public int hashCode() {

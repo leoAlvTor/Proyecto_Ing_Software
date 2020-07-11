@@ -2,7 +2,6 @@ package ec.edu.ups.entidad_ingre_egre_rep;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,6 +9,8 @@ public class FacturaDetalle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
+    @ManyToOne
+    private FacturaEgreso facturaEgreso;
     @ManyToOne
     private FacturaIngreso facturaingreso;
     private int cantidad;

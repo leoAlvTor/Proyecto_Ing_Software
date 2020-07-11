@@ -12,27 +12,17 @@ public class Caja implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "caja")
-    private List<FacturaCabecera> facturas;
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "caja")
     private List<FacturaIngreso> facturasIngreso;
-
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "caja")
+    private List<FacturaEgreso> facturaEgresos;
 
     public Caja() {
         facturasIngreso= new ArrayList<FacturaIngreso>();
     }
 
-    public Caja(int codigo, List<FacturaCabecera> facturas) {
-        this.codigo = codigo;
-        this.facturas = facturas;
-    }
-
-    public List<FacturaIngreso> getFacturasIngreso() {
-        return facturasIngreso;
-    }
-
-    public void setFacturasIngreso(List<FacturaIngreso> facturasIngreso) {
+    public Caja( List<FacturaIngreso> facturasIngreso, List<FacturaEgreso> facturaEgresos) {
         this.facturasIngreso = facturasIngreso;
+        this.facturaEgresos = facturaEgresos;
     }
 
     public int getCodigo() {
@@ -43,16 +33,21 @@ public class Caja implements Serializable {
         this.codigo = codigo;
     }
 
-    public List<FacturaCabecera> getFacturas() {
-        return facturas;
+    public List<FacturaIngreso> getFacturasIngreso() {
+        return facturasIngreso;
     }
 
-    public void setFacturas(List<FacturaCabecera> facturas) {
-        this.facturas = facturas;
+    public void setFacturasIngreso(List<FacturaIngreso> facturasIngreso) {
+        this.facturasIngreso = facturasIngreso;
     }
 
-    public void verificarSaldo(){}
-    public void enviarTransaccion(){}
+    public List<FacturaEgreso> getFacturaEgresos() {
+        return facturaEgresos;
+    }
+
+    public void setFacturaEgresos(List<FacturaEgreso> facturaEgresos) {
+        this.facturaEgresos = facturaEgresos;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -65,13 +60,5 @@ public class Caja implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
-    }
-
-    @Override
-    public String toString() {
-        return "Caja{" +
-                "codigo=" + codigo +
-                ", facturas=" + facturas +
-                '}';
     }
 }

@@ -6,6 +6,7 @@ import ec.edu.ups.entidad_cit_cons_cert.HistorialClinico;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 @Stateless
 public class HistorialClinicoFacade extends AbstractFacade<HistorialClinico>{
 
