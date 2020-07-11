@@ -65,6 +65,7 @@ public class AdministradorBean implements Serializable {
         this.nombreRol="";
         this.descripcion="";
         this.nombreRolSelect="";
+
     }
 
 

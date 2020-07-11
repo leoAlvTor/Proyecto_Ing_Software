@@ -23,35 +23,38 @@
          -ms-transform: translate(-50%, -50%);
          transform: translate(-50%, -50%);
          width: 60%; max-width: 700px">
-
+s
         <div style="margin: 10px; color: azure">
-            <form class="col-12" action="" style="margin: 10px">
+            <h:form class="col-12" action="" style="margin: 10px">
                 <div class="form-group">
-                    <p:inputText placeholder="Numero De Cedula" type="text" class="form-control" id="cedula" /><br/>
+                    <p:inputText placeholder="Numero De Cedula" type="text" class="form-control" id="cedula" value="#{registroPacienteBean.cedula}" /><br/>
                     <div class="row">
                         <div class="col">
-                            <p:inputText placeholder="Nombres" type="text" styleClass="form-control" id="nombres"/><br/>
+                            <p:inputText placeholder="Nombres" type="text" styleClass="form-control" id="nombres" value="#{registroPacienteBean.nombre}"/><br/>
                         </div>
                         <div class="col">
-                            <p:inputText placeholder="Apellidos" type="text" styleClass="form-control" id="apellidos"/><br/>
+                            <p:inputText placeholder="Apellidos" type="text" styleClass="form-control" id="apellidos" value="#{registroPacienteBean.apellido}"/><br/>
                         </div>
                     </div>
-                    <p:inputText placeholder="Direccion" type="text" styleClass="form-control" id="direccion"/><br/>
-                    <p:inputText placeholder="Correo Electronico" type="text" styleClass="form-control" id="email"/><br/>
-                    <p:inputText placeholder="Password" type="text" styleClass="form-control" id="password"/><br/>
-                    <p:inputText placeholder="Confirme Su Password" type="text" styleClass="form-control" id="password_confirmation"/><br/>
-                    <p:inputText placeholder="Fecha De Nacimiento" styleClass="form-control" id="fecha_nacimiento"/><br/>
-                    <p:inputText placeholder="Telefono" type="text" styleClass="form-control" id="telefono"/><br/>
+                    <!--<p:inputText placeholder="Direccion" type="text" styleClass="form-control" id="direccion" value="#{iniciarSesionBean}"/><br/>-->
+                    <p:inputText placeholder="Correo Electronico" type="text" styleClass="form-control" id="email" value="#{registroPacienteBean.correo}"/><br/>
+                    <p:inputText placeholder="Password" type="text" styleClass="form-control" id="password" value="#{registroPacienteBean.password}"/><br/>
+                    <p:inputText placeholder="Confirme Su Password" type="text" styleClass="form-control"  id="password_confirmation" value="#{registroPacienteBean.password}"/><br/>
+                    <!--<p:inputText placeholder="Fecha De Nacimiento" styleClass="form-control" id="fecha_nacimiento"/><br/>
+                    <p:inputText placeholder="Telefono" type="text" styleClass="form-control" id="telefono"/><br/>-->
 
                 </div>
                 <hr style="width: 95%; background-color:#efa242; height: 2px;"/>
 
                 <div class="form-group-lg" style="margin-top: 50px">
-                    <p:commandLink value="Crear una cuenta" styleClass="btn btn-primary btn-block"/>
+                    <!--PILAS AQUI CON ESE H-->
+                    <!--<h:commandLink  value="Crear una cuenta"  xmlns:h="http://xmlns.jcp.org/jsf/html" />-->
+                    <p:commandLink value="Crear una cuenta" styleClass="btn btn-primary btn-block"
+                    action="#{registroPacienteBean.addPaciente}"/>
                     <br/>
                     <p:commandLink value="Ya tienes cuenta? Inicia Sesion" styleClass="btn btn-danger btn-block"/>
                 </div>
-            </form>
+            </h:form>
         </div>
     </div>
 
