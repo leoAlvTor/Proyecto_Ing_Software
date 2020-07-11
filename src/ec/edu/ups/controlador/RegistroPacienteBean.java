@@ -26,10 +26,6 @@ public class RegistroPacienteBean implements Serializable {
     private String password;
     /*EJB'S PARA LA PERSISTENCIA*/
     @EJB
-    private ColaboradorFacade colaboradorFacade;
-    @EJB
-    private MedicoFacade medicoFacade;
-    @EJB
     private PacienteFacade pacienteFacade;
     @EJB
     private RolFacade rolFacade;

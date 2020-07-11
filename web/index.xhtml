@@ -21,22 +21,24 @@
          width: 60%; max-width: 700px">
 
       <div style="margin: 10px; color: azure">
-         <form class="col-12" action="" style="margin: 10px">
+         <h:form class="col-12" action="" style="margin: 10px">
             <div class="form-group">
                <h4><p:outputLabel value="Usuario:" /></h4>
-               <p:inputText placeholder="Ingrese su usuario" type="text" class="form-control" id="id1" style="border: 0; outline: 0; border-bottom: 1px solid"/>
+               <p:inputText placeholder="Ingrese su Correo" type="text" class="form-control" id="id1" style="border: 0; outline: 0; border-bottom: 1px solid"
+               value="#{inicioSesionBean.correo}"/>
             </div>
             <hr style="width: 95%; background-color:#efa242; height: 2px;"/>
             <div class="form-group">
                <h4><p:outputLabel value="Password:"/></h4>
-               <p:password placeholder="Ingrese su contrasena" type="text" class="form-control" id="id2" style="border: 0; outline: 0; border-bottom: 1px solid"/>
+               <p:password placeholder="Ingrese su contrasena" type="text" class="form-control" id="id2" style="border: 0; outline: 0; border-bottom: 1px solid"
+               value="#{inicioSesionBean.password}"/>
             </div>
 
             <div class="form-group-lg" style="margin-top: 50px">
-               <p:commandButton value="Iniciar Sesion" styleClass="btn btn-primary btn-block"/><br/>
+               <p:commandButton value="Iniciar Sesion" styleClass="btn btn-primary btn-block" onclick="#{inicioSesionBean.validar()}"/><br/>
                <h4><p:link value="Registrarme" styleClass="btn btn-danger btn-block"/></h4>
             </div>
-         </form>
+         </h:form>
       </div>
    </div>
 

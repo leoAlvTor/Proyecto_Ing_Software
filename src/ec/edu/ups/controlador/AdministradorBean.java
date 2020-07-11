@@ -52,7 +52,7 @@ public class AdministradorBean implements Serializable {
         }
 
     }
-
+    /*Metodos para persistencia Rol*/
     public String addRol(){
         System.out.println(nombreRol.toUpperCase()+" "+descripcion.toUpperCase());
         rolFacade.create(new Rol(this.nombreRol.toUpperCase(),this.descripcion.toUpperCase()));
@@ -65,11 +65,11 @@ public class AdministradorBean implements Serializable {
         this.nombreRol="";
         this.descripcion="";
         this.nombreRolSelect="";
-
     }
 
 
     /*Metodos para persistencia Colaborador*/
+
     public void addColaborador(){
         Colaborador c=new Colaborador();
         c.setNombre(this.nombre.toUpperCase());
@@ -80,6 +80,15 @@ public class AdministradorBean implements Serializable {
         Rol r=rolFacade.find(mapaRoles.get(this.nombreRolSelect));
         c.setRol(r);
         colaboradorFacade.create(c);
+        limpiarCamposColab();
+    }
+
+    public void limpiarCamposColab(){
+        this.nombre="";
+        this.cedula="";
+        this.apellido="";
+        this.correo="";
+        this.password="";
     }
 
 
