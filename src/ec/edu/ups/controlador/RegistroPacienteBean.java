@@ -49,7 +49,7 @@ public class RegistroPacienteBean implements Serializable {
         p.setCorreo(this.correo);
         p.setPassword(this.password);
         /*PILAS AQUI VA EL ROL DE PACIENTE*/
-        Rol r=rolFacade.find(22);
+        Rol r=rolFacade.find(4);//SE ESTABLECE EL RESPECTIVO ROL DE PACIENTE AL NUEVO REGISTRO
         p.setRol(r);
         pacienteFacade.create(p);
         limpiarCampos();

@@ -1,7 +1,9 @@
 package ec.edu.ups.controlador;
 
 import ec.edu.ups.ejb.MedicoFacade;
+import ec.edu.ups.ejb.RolFacade;
 import ec.edu.ups.entidad_cit_cons_cert.Medico;
+import ec.edu.ups.entidad_cit_cons_cert.Rol;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -27,6 +29,8 @@ public class MedicoBean implements Serializable {
     private List<Medico> listaMedicos;
     @EJB
     private MedicoFacade medicoFacade;
+    @EJB
+    private RolFacade rolFacade;
 
     public MedicoBean(){
 
@@ -46,6 +50,8 @@ public class MedicoBean implements Serializable {
         m.setCorreo(this.correo);
         m.setPassword(this.password);
         m.setEspecialidad(this.especialidad.toUpperCase());
+        Rol r=rolFacade.find(5);//Para Relacionar al medico con su respectivo rol
+        m.setRol(r);
         medicoFacade.create(m);
         limpiarCampos();
         this.listaMedicos=medicoFacade.findAll();/*para actualizar la lista de medicos*/

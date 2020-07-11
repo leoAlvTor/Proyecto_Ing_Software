@@ -77,7 +77,7 @@ public class AdministradorBean implements Serializable {
         c.setCedula(this.cedula);
         c.setCorreo(this.correo);
         c.setPassword(this.password);
-        Rol r=rolFacade.find(mapaRoles.get(this.nombreRolSelect));
+        Rol r=rolFacade.find(mapaRoles.get(this.nombreRolSelect));//ESTA CONFIGURADO PARA OBTENER EL ID DEL COLABORADOR
         c.setRol(r);
         colaboradorFacade.create(c);
         limpiarCamposColab();
@@ -146,10 +146,12 @@ public class AdministradorBean implements Serializable {
 
     /*metodos*/
     public String [] listaRolesForSelect(){
-        String[] list = new String[listaRoles.size()];
-        list[0]="elegir";
-        for (int i = 1; i < listaRoles.size(); i++){
-            list[i] = listaRoles.get(i).getNombre();
+        String[] list = new String[listaRoles.size()+1];
+
+        list[0]="Elegir Rol";
+        for (int i = 1; i < listaRoles.size()+1; i++){
+            list[i] = listaRoles.get(i-1).getNombre();
+
         }
         return list;
     }
