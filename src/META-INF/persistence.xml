@@ -3,8 +3,8 @@
 
     <persistence-unit name="NewPersistenceUnit"/>
     <persistence-unit name="Practica03.EJB.JSF.JPA" transaction-type="JTA">
-        <!--<jta-data-source>jdbc/_clinica</jta-data-source>-->
-        <jta-data-source>jdbc/_local</jta-data-source>
+        <jta-data-source>jdbc/_clinica</jta-data-source>
+        <!--<jta-data-source>jdbc/_local</jta-data-source>-->
         <class>ec.edu.ups.entidad_cit_cons_cert.Persona</class>
         <class>ec.edu.ups.entidad_cit_cons_cert.Medico</class>
         <class>ec.edu.ups.entidad_cit_cons_cert.Cita</class>
