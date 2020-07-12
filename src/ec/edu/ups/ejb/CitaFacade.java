@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Stateless
@@ -28,9 +29,20 @@ public class CitaFacade extends AbstractFacade<Cita>{
         CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
         CriteriaQuery<Cita> criteriaQuery= criteriaBuilder.createQuery(Cita.class);
         Root<Cita> categoriaRoot= criteriaQuery.from(Cita.class);
-        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("PACIENTE"),cedula);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("paciente"),cedula);
         criteriaQuery.select(categoriaRoot).where(predicate);
         return entityManager.createQuery(criteriaQuery).getResultList();
+    }
+
+
+    public Cita buscarCitaPorFechaHora(Timestamp fec_hora){
+        System.out.println("Fec_ hora buscado"+fec_hora);
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cita> criteriaQuery= criteriaBuilder.createQuery(Cita.class);
+        Root<Cita> categoriaRoot= criteriaQuery.from(Cita.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("fec_hora"),fec_hora);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
     @Override
     protected EntityManager getEntityManager() {

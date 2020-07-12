@@ -39,6 +39,8 @@ public class FacturaEgreso extends FacturaCabecera implements Serializable {
         this.caja = caja;
     }
 
+
+
     @Override
     public int hashCode() {
         return super.hashCode();

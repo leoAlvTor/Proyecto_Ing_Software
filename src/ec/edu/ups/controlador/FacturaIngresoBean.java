@@ -3,8 +3,7 @@ package ec.edu.ups.controlador;
 import ec.edu.ups.ejb.*;
 import ec.edu.ups.entidad_cit_cons_cert.Cita;
 import ec.edu.ups.entidad_cit_cons_cert.Paciente;
-import ec.edu.ups.entidad_ingre_egre_rep.FacturaDetalle;
-import ec.edu.ups.entidad_ingre_egre_rep.Medicamento;
+import ec.edu.ups.entidad_ingre_egre_rep.*;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,6 +12,8 @@ import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
 import javax.persistence.Transient;
 import java.io.Serializable;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.*;
 
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
@@ -50,14 +51,28 @@ public class FacturaIngresoBean implements Serializable {
     //cita seleccionada para facturar
     private String selected_cita;
 
+    private FacturaIngreso facturaIngreso;
+
+   private double acumulado_subtotal;
+    private  double acumulado_iva;
+    private double acumulado_total;
+
 
     public FacturaIngresoBean(){
-
+        list= new ArrayList<>();
     }
     @PostConstruct
     public void init(){
         //list=ejbFacturaDetalle.findAll();
 
+    }
+
+    public FacturaIngreso getFacturaIngreso() {
+        return facturaIngreso;
+    }
+
+    public void setFacturaIngreso(FacturaIngreso facturaIngreso) {
+        this.facturaIngreso = facturaIngreso;
     }
 
     public String getSelected_cita() {
@@ -91,7 +106,6 @@ public class FacturaIngresoBean implements Serializable {
     public void setList(List<FacturaDetalle> list) {
         this.list = list;
     }
-
 
     public String getTotal_iva() {
         return total_iva;
@@ -173,19 +187,11 @@ public class FacturaIngresoBean implements Serializable {
         this.citas_paciente = citas_paciente;
     }
 
-    public void add() {
+    public void buscarPaciente() {
 
-            System.out.println("ingreso al metodo");
-        /*Medicamento medicamento_encontrado=buscarMedicamento(medicamento);
-        double precio_total= medicamento_encontrado.getPrecio()*Integer.parseInt(cantidad);
-        Date date = null;
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
-        cal.setTime(date);
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);  */
+
         //SE DEBE BUSCAR POR CEDULA;
-        Cita cita_buscada= new Cita();
+
         try {
             Paciente paciente_buscado = ejbPacienteFacade.buscarPorCedula(paciente);
             setMensaje("Paciente Encontrado");
@@ -195,12 +201,72 @@ public class FacturaIngresoBean implements Serializable {
             setMensaje("PACIENTE NO ENCONTRADO");
             System.out.println("no encontro "+e);
         }
-        System.out.println("encontro");
 
+        System.out.println("encontro");
+        //int codigo, GregorianCalendar fecha, double total_iva, double subtotal, double total, Caja caja, Paciente paciente, List<FacturaDetalle> facturadetalles, Cita cita
+
+        }
+        public void crearCabecera(){
+            Date d = new Date();
+            GregorianCalendar cal = new GregorianCalendar();
+            cal.setTime(d);
+            System.out.println(d);
+            Paciente paciente_buscado = ejbPacienteFacade.buscarPorCedula(paciente);
+            Timestamp fecha_hora_cita=Timestamp.valueOf(selected_cita);
+            Cita cita_search= ejbCitaFacade.buscarCitaPorFechaHora(fecha_hora_cita);
+            Caja caja1=new Caja();
+
+            this.facturaIngreso= new FacturaIngreso(cal,0.0,0.0,0.0,null,paciente_buscado,list,cita_search);
+            ejbFacturaIngreso.create(facturaIngreso);
+            System.out.println("FUCK YOU BITCH");
+        }
+
+        public String addDetalle() {
+                Medicamento medicamento_buscado = ejbMedicamentoFacade.buscarPorCodigo(medicamento);
+                System.out.println(medicamento_buscado.toString());
+                double total_detalle = medicamento_buscado.getPrecio() * Integer.parseInt(cantidad);
+                //this.list.add(new FacturaDetalle(facturaIngreso, Integer.parseInt(cantidad), medicamento_buscado, total_detalle));
+             ejbFacturaDetalle.create(new FacturaDetalle(facturaIngreso, Integer.parseInt(cantidad), medicamento_buscado, total_detalle));
+               list=ejbFacturaDetalle.findAll();
+            for (FacturaDetalle det:list
+                 ) {
+                this.acumulado_subtotal=this.acumulado_subtotal+det.getTotal();
+                this.acumulado_iva=this.acumulado_iva+acumulado_subtotal*0.12;
+                this.acumulado_total=this.acumulado_total+ acumulado_subtotal+acumulado_iva;
+                this.facturaIngreso.setSubtotal(acumulado_subtotal);
+                this.facturaIngreso.setTotal_iva(acumulado_iva);
+                this.facturaIngreso.setTotal(acumulado_total);
+                this.subtotal=String.valueOf(acumulado_subtotal);
+                this.total_iva=String.valueOf(acumulado_iva);
+                this.total=String.valueOf(acumulado_total);
+                ejbFacturaIngreso.edit(facturaIngreso);
+            }
+                return null;
+
+        }
+
+        public void agregarConsulta(){
+            Timestamp fecha_hora_cita=Timestamp.valueOf(selected_cita);
+            Cita cita_search= ejbCitaFacade.buscarCitaPorFechaHora(fecha_hora_cita);
+            Medicamento consulta=ejbMedicamentoFacade.buscarPorCodigo("4");
+            ejbFacturaDetalle.create(new FacturaDetalle(facturaIngreso, 1,consulta, 50.0));
+            list=ejbFacturaDetalle.findAll();
+            this.acumulado_total=this.acumulado_total+consulta.getPrecio();
+            this.acumulado_subtotal=this.acumulado_subtotal+consulta.getPrecio();
+            System.out.println("acc"+acumulado_total);
+            this.facturaIngreso.setSubtotal(acumulado_subtotal);
+            this.facturaIngreso.setTotal(acumulado_total);
+            this.total=String.valueOf(acumulado_total);
+            this.subtotal=String.valueOf(acumulado_subtotal);
+            ejbFacturaIngreso.edit(facturaIngreso);
+
+            System.out.println("total "+total);
 
 
 
         }
+
+
     }
 
 

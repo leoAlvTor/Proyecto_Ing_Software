@@ -30,7 +30,15 @@ public class MedicamentoFacade extends AbstractFacade<Medicamento>{
         criteriaQuery.select(categoriaRoot).where(predicate);
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
-
+    public Medicamento buscarPorCodigo(String codigo){
+        System.out.println("Bodega buscada"+codigo);
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Medicamento> criteriaQuery= criteriaBuilder.createQuery(Medicamento.class);
+        Root<Medicamento> categoriaRoot= criteriaQuery.from(Medicamento.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("codigo"),codigo);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
     @Override
     protected EntityManager getEntityManager() {
         return entityManager;

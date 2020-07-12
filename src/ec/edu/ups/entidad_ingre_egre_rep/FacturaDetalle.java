@@ -14,7 +14,7 @@ public class FacturaDetalle implements Serializable {
     @ManyToOne
     private FacturaIngreso facturaingreso;
     private int cantidad;
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "facturadetalle")
+    @OneToOne
     private Medicamento medicamento;
     private double total;
 
