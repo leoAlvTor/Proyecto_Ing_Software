@@ -27,6 +27,13 @@ public class FacturaDetalle implements Serializable {
         this.medicamento = medicamento;
         this.total = total;
     }
+    public FacturaDetalle(FacturaIngreso facturaingreso, FacturaEgreso facturaegreso, int cantidad, Medicamento medicamento, double total) {
+        this.facturaingreso = facturaingreso;
+        this.facturaEgreso = facturaegreso;
+        this.cantidad = cantidad;
+        this.medicamento = medicamento;
+        this.total = total;
+    }
 
     public double getTotal() {
         return total;

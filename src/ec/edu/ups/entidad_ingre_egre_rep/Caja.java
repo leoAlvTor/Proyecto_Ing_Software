@@ -3,14 +3,16 @@ package ec.edu.ups.entidad_ingre_egre_rep;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Caja implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
+    private Date fecha;
+    private String descripcion;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "caja")
     private List<FacturaIngreso> facturasIngreso;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "caja")
@@ -20,9 +22,29 @@ public class Caja implements Serializable {
         facturasIngreso= new ArrayList<FacturaIngreso>();
     }
 
-    public Caja( List<FacturaIngreso> facturasIngreso, List<FacturaEgreso> facturaEgresos) {
+
+    public Caja(int codigo, Date fecha, String descripcion, List<FacturaIngreso> facturasIngreso, List<FacturaEgreso> facturaEgresos) {
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.descripcion = descripcion;
         this.facturasIngreso = facturasIngreso;
         this.facturaEgresos = facturaEgresos;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public int getCodigo() {
