@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="primefaces-8.0">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../Librerias/JSF/primefaces-8.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

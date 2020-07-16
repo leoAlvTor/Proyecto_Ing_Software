@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="NewPersistenceUnit"/>
+    <persistence-unit name="Practica03.EJB.JSF.JPA" transaction-type="JTA">
+        <jta-data-source>jdbc/_clinica</jta-data-source>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.FacturaCabecera</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.FacturaIngreso</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.FacturaEgreso</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Persona</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Medico</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Cita</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.HistoriaClinica</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.HistorialClinico</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.OrdenMedica</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Paciente</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Certificado</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Prescripcion</class>
+        <class>ec.edu.ups.entidad_cit_cons_cert.Rol</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.AscientoContable</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.Caja</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.LibroDiario</class>
+        <class>ec.edu.ups.entidad_ingre_egre_rep.Medicamento</class>
+
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+        </properties>
+    </persistence-unit>
+</persistence>

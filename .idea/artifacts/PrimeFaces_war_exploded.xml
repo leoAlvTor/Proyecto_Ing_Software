@@ -11,8 +11,8 @@
           <element id="library" level="project" name="Mojarra-2.3.8" />
           <element id="library" level="application" name="primefaces-8.0" />
           <element id="library" level="project" name="Java EE 6-Java EE 6" />
-          <element id="library" level="project" name="primefaces-8.0" />
-          <element id="library" level="project" name="BootsFaces-OSP-1.4.2" />
+          <element id="library" level="project" name="JBoss Weld-2.0.3" />
+          <element id="library" level="project" name="JPA 2.0-2.0" />
         </element>
       </element>
     </root>
