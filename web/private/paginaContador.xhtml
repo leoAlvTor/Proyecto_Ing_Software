@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" type="javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" type="javascript"></script>
+<h:head>
+    <title>JSF 2.3</title>
+    <style type="">
+        form{
+            margin-left: 30%;
+            width: 40%;
+            border-style: solid;
+            border-left-color: yellow;
+            border-bottom-color: yellow;
+        }
+        #Medicamento{
+
+            display: block;
+        }
+        h3{
+            background-color: deepskyblue;
+            margin-left: 30%;
+            border-radius: 10px;
+            width: 40%;
+        }
+        #tabla {
+            float: left;
+            border-collapse: collapse;
+        }
+
+    </style>
+</h:head>
+<h:body>
+    <h3>FACTURACION CITA</h3>
+    <h:form styleClass="">
+
+
+        <h:commandButton value="BUSCAR" action="#{cajaBean.buscarCaja}" style="" />
+        <h:outputText value="#{cajaBean.mensaje}"/>
+
+        <fieldset>
+
+
+            <h:dataTable  value="#{cajaBean.facturaIngresoList}" var="c" styleClass="table table-hover"
+                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar" style=" width: 35%; margin-top: 2%; " id="tabla">
+
+                <h:column>
+                    <f:facet name="header">CODIGO MED.</f:facet>
+                    <h:outputText value="#{c.codigo}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">CANTIDAD</f:facet>
+                    <h:outputText value="#{c.fecha}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">MEDICAMENTO</f:facet>
+                    <h:outputText value="#{c.paciente.nombre}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PRECIO.U</f:facet>
+                    <h:outputText value="#{c.total}"  />
+                </h:column>
+            </h:dataTable>
+        </fieldset>
+        <fieldset>
+
+
+            <h:dataTable  value="#{cajaBean.facturaEgresoList}" var="c" styleClass="table table-hover"
+                          headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar" style=" width: 35%; margin-top: 2%; " id="tabla2">
+
+                <h:column>
+                    <f:facet name="header">CODIGO MED.</f:facet>
+                    <h:outputText value="#{c.codigo}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">CANTIDAD</f:facet>
+                    <h:outputText value="#{c.fecha}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">MEDICAMENTO</f:facet>
+                    <h:outputText value="#{c.paciente.nombre}"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">PRECIO.U</f:facet>
+                    <h:outputText value="#{c.total}"  />
+                </h:column>
+            </h:dataTable>
+        </fieldset>
+        <h:commandButton value="Cerrar Caja" action="#{cajaBean.cerrarCaja()}" />
+    </h:form>
+</h:body>
+</html>
